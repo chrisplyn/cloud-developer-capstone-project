@@ -22,10 +22,10 @@ deploy_service_job: &DEPLOY_SERVICE_JOB
 jobs:
   include:
     - <<: *DEPLOY_SERVICE_JOB
-      name: "Deploy Frontend"
+      name: "Deploy Frontend service"
       env:
         - SERVICE_PATH="client"
     - <<: *DEPLOY_SERVICE_JOB
-      name: "Deploy backend"
+      name: "Deploy backend service"
       env:
         - SERVICE_PATH="backend"

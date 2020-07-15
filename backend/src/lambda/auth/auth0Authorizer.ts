@@ -33,14 +33,14 @@ export const handler = async (
       Endpoint: jwtToken.email
     };
     
-    try{
-      console.log("Subscription ARN is " + params.TopicArn);
-      console.log("Subscription EMAIL is " + params.Endpoint);
-      await subscribe.subscribe(params).promise();
-    }
-    catch(e){
-      console.error(e, e.stack);
-    }
+    // try{
+    //   console.log("Subscription ARN is " + params.TopicArn);
+    //   console.log("Subscription EMAIL is " + params.Endpoint);
+    //   await subscribe.subscribe(params).promise();
+    // }
+    // catch(e){
+    //   console.error(e, e.stack);
+    // }
 
     return {
       principalId: jwtToken.sub,
