@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "updateTodo",
+    "type": "object",
+    "properties": {
+      "name": {"$ref": "#/definitions/non-empty-string"},
+      "dueDate": {"$ref": "#/definitions/non-empty-string"},
+      "done": {
+        "type": "boolean"
+      }
+    },
+    "definitions": {
+      "non-empty-string": {
+          "type": "string",
+          "minLength": 1
+      }
+    },
+    "required": [
+      "name",
+      "dueDate",
+      "done"
+    ],
+    "additionalProperties": false
+}
