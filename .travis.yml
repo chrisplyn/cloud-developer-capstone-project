@@ -9,7 +9,7 @@ deploy_service_job: &DEPLOY_SERVICE_JOB
       - ${SERVICE_PATH}/node_modules
 
   install:
-    - npm install -g serverless
+    - npm install -g serverless@1.74.1
     - cd ${SERVICE_PATH}
     - travis_retry npm install
     - cd -
