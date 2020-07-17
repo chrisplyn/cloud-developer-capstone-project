@@ -28,18 +28,23 @@ export const handler = async (
     logger.info('User was authorized', jwtToken)
 
     const params = {
-      Protocol: 'EMAIL', /* required */
+      Protocol: 'email-json', /* required */
       TopicArn: topicARN, /* required */
       Endpoint: jwtToken.email
     };
     
-    try{
-      console.log("Subscription ARN is " + params.TopicArn);
-      console.log("Subscription EMAIL is " + params.Endpoint);
-      await sns.subscribe(params).promise();
-    }
-    catch(e){
-      console.error(e, e.stack);
+    let subscribed = await doesSubscriptionExist(sns, params.TopicArn, params.Endpoint)
+    console.log(subscribed)
+
+    if(!subscribed){
+      try{
+        console.log("Subscription ARN is " + params.TopicArn)
+        console.log("Subscription EMAIL is " + params.Endpoint)
+        await sns.subscribe(params).promise()
+      }
+      catch(e){
+        console.error(e, e.stack);
+      }
     }
 
     return {
@@ -131,6 +136,23 @@ const getSigningKey = async (jwkurl, kid) => {
 
   return signingKey
 };
+
+const doesSubscriptionExist = async (sns, topicArn, endPoint) => {
+  let nextToken = null
+
+  do {
+    let result = await sns.listSubscriptionsByTopic({TopicArn : topicArn, NextToken : nextToken}).promise()
+    nextToken = result.NextToken
+    console.log(nextToken)
+
+    if(result.Subscriptions.find(s => s.Endpoint === endPoint)){
+      console.log("already subscribed")
+      return true
+    }
+  } while (nextToken)
+
+  return false
+}
 
 
 function certToPEM(cert) {

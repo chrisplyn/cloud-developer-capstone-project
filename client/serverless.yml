@@ -6,6 +6,10 @@ provider:
     runtime: nodejs12.x
     region: us-east-1
 
+    environment:
+        STAGE: prod
+        API_ID: tbdr3wda1l
+
 plugins:
     - serverless-s3-sync
 
