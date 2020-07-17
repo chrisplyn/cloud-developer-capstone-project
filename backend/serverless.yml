@@ -70,6 +70,12 @@ functions:
         Resource: "*"
         Action:
           - "sns:*"
+      - Effect: Allow
+        Action:
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
   # TODO: Configure this function
   GetTodos:
     handler: src/lambda/http/getTodos.handler
