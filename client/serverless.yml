@@ -8,7 +8,7 @@ provider:
 
     environment:
         STAGE: prod
-        API_ID: tbdr3wda1l
+        API_ID: yf7pv6gehi
 
 plugins:
     - serverless-s3-sync
