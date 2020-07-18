@@ -2,28 +2,28 @@ import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 
-import { UpdateTodoRequest } from '../../requests/UpdateTodoRequest'
+import { UpdateReceiptRequest } from '../../requests/UpdateReceiptRequest'
 import { getUserId } from '../utils'
-import { updateTodo, todoExist } from '../../businessLogic/todo'
+import { updateReceipt, receiptExist } from '../../businessLogic/receipt'
 import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
 
 export const handler = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const todoId = event.pathParameters.todoId
-  const updatedTodo: UpdateTodoRequest = JSON.parse(event.body)
+  const receiptId = event.pathParameters.receiptId
+  const updatedReceipt: UpdateReceiptRequest = JSON.parse(event.body)
   const userId = getUserId(event);
-  const validItem = await todoExist(userId, todoId)
+  const validItem = await receiptExist(userId, receiptId)
 
   if (!validItem) {
     return {
       statusCode: 404,
       body: JSON.stringify({
-        error: `Unable to find Todo'${todoId}' for user '${userId}'`
+        error: `Unable to find Receipt'${receiptId}' for user '${userId}'`
       })
     }
   }
 
-  await updateTodo(userId, todoId, updatedTodo)
+  await updateReceipt(userId, receiptId, updatedReceipt)
   return {
     statusCode: 200,
     body: " "

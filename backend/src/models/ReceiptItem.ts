@@ -1,9 +1,8 @@
-export interface TodoItem {
+export interface ReceiptItem {
   userId: string
-  todoId: string
+  receiptId: string
   createdAt: string
   name: string
-  dueDate: string
-  done: boolean
+  amount: number
   attachmentUrl?: string
 }

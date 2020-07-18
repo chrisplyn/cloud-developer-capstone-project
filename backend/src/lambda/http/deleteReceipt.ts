@@ -2,16 +2,16 @@ import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { getUserId } from '../utils';
-import { deleteTodo } from '../../businessLogic/todo';
+import { deleteReceipt } from '../../businessLogic/receipt';
 import * as middy from 'middy';
 import { cors } from 'middy/middlewares';
 
 export const handler = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const todoId = event.pathParameters.todoId
+  const receiptId = event.pathParameters.receiptId
   const userId = getUserId(event);
 
-  // TODO: Remove a TODO item by id
-  await deleteTodo(userId, todoId)
+  // RECEIPT: Remove a RECEIPT item by id
+  await deleteReceipt(userId, receiptId)
   return {
     statusCode: 200,
     body: " "
